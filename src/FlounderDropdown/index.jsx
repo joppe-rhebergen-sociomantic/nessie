@@ -53,7 +53,9 @@ const buildFlounder = ( node, props = {} ) =>
 
             if ( typeof props.value !== 'undefined' || props.isReadOnly )
             {
-                setValue( flounder, props.value );
+                const currentValue = flounder.getSelectedValues();
+                const checkedValue = ( currentValue != props.value ) ? currentValue : props.value;
+                setValue( flounder, checkedValue );
             }
 
             toChange && props.onChange( ...args );
