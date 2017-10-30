@@ -1,9 +1,10 @@
-import React     from 'react';
-import PropTypes from 'prop-types';
+import React        from 'react';
+import PropTypes    from 'prop-types';
 
-import Component from '../proto/Component';
-import Css       from '../hoc/Css';
-import Text      from '../Text';
+import Component    from '../proto/Component';
+import Css          from '../hoc/Css';
+import IconButton   from '../IconButton';
+import Text         from '../Text';
 
 export default class Tooltip extends Component
 {
@@ -13,6 +14,10 @@ export default class Tooltip extends Component
         *  Node that the Tooltip wraps
         */
         children         : PropTypes.node,
+        /**
+        *  Display the tooltip as user dismissible
+        */
+        isDismissible    : PropTypes.bool,
         /**
         *  Display the tooltip
         */
@@ -25,6 +30,10 @@ export default class Tooltip extends Component
         *  Text won’t wrap to the next line
         */
         noWrap           : PropTypes.bool,
+        /**
+         *  Function to call on “Close” button click: ( e ) => { ... }
+         */
+        onClickClose     : PropTypes.func,
         /**
         *  onMouseOver callback function: ( e ) => { ... }
         */
@@ -64,12 +73,14 @@ export default class Tooltip extends Component
     {
         const {
             children,
+            isDismissible,
             className,
             cssMap,
             message,
             position,
             isVisible,
             noWrap,
+            onClickClose,
             onMouseOver,
             onMouseOut,
             overflowIsHidden
@@ -96,7 +107,17 @@ export default class Tooltip extends Component
                 role      = "tooltip"
                 id        = { id }>
                 <div
-                    className = { cssMap.message }>{ messageLines }</div>
+                    className = { cssMap.message }>{ messageLines }
+                </div>
+                { isDismissible &&
+                    <IconButton
+                        className    = { cssMap.isDismissible }
+                        iconType     = "close"
+                        onClickClose = { onClickClose }
+                        iconTheme    = "control"
+                        iconSize     = "S"
+                    />
+                }
             </div>
         );
 

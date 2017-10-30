@@ -34,7 +34,8 @@
 
 .tooltip
 {
-    display:            block;
+    display:            flex;
+    align-items:        center;
     position:           absolute;
 
     width:              auto;
@@ -72,6 +73,11 @@
         background-color:   var( --PC-WHITE );
 
         transform:          rotate( 45deg );
+    }
+
+    .isDismissible
+    {
+        margin-left: 1.5rem;
     }
 }
 
